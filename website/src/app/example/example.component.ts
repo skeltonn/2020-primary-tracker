@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import Iowa from '../../assets/Iowa.json';
+import Nevada from '../../assets/Nevada.json';
+import NewHampshire from '../../assets/New Hampshire.json';
+import SouthCarolina from '../../assets/South Carolina.json';
 
+const accepted = ["Biden", "Warren", "Sanders", "Buttigieg", "Harris", "Steyer", "Booker", "Klobuchar", "Yang", "Gabbard", "O'Rourke"];
 
 @Component({
   selector: 'app-example',
@@ -9,22 +14,74 @@ import { Component, OnInit } from '@angular/core';
 export class ExampleComponent implements OnInit {
 
   chartOptions = {
-    responsive: true
+    responsive: true,
+    title: {
+      display: true,
+      text: "Early State Polling Average",
+      fontSize: 20
+    },
+    legend: {
+      labels: {
+        padding: 25
+      }
+    },
+    scales: {
+      xAxes: [{
+        barPercentage: 1,
+        gridLines: {
+          display: false
+        }
+      }]
+    }
   };
 
-  chartData = [
-    { data: [330, 600, 260, 700], label: 'Account A' },
-    { data: [120, 455, 100, 340], label: 'Account B' },
-    { data: [45, 67, 800, 500], label: 'Account C' }
-  ];
+  chartData = [];
 
-  chartLabels = ['January', 'February', 'Mars', 'April'];
+  chartLabels = accepted;
 
   onChartClick(event) {
-    console.log(event);
+    //console.log(event);
   }
 
-  constructor() { }
+  constructor() { 
+
+    this.chartData.push({ data: [], label: "Iowa"})
+    this.chartData.push({ data: [], label: "New Hampshire"})
+    this.chartData.push({ data: [], label: "South Carolina"})
+    this.chartData.push({ data: [], label: "Nevada"})
+
+    for(var x in accepted) {
+      this.chartData[0].data.push(Iowa[accepted[x]])
+      this.chartData[1].data.push(NewHampshire[accepted[x]])
+      this.chartData[2].data.push(SouthCarolina[accepted[x]])
+      this.chartData[3].data.push(Nevada[accepted[x]])
+    }
+
+    //console.log(this.chartData[0])
+
+    /*
+    for(var x in Iowa) {
+      if (accepted.includes(x)) {
+        this.chartData[0].data.push(Iowa[x]);
+      }
+    }
+    for(var x in NewHampshire) {
+      if (accepted.includes(x)) {
+        this.chartData[1].data.push(NewHampshire[x]);
+      }
+    }
+    for(var x in SouthCarolina) {
+      if (accepted.includes(x)) {
+        this.chartData[2].data.push(SouthCarolina[x]);
+      }
+    }
+    for(var x in Nevada) {
+      if (accepted.includes(x)) {
+        this.chartData[3].data.push(Nevada[x]);
+      }
+    }
+    */
+  }
 
   ngOnInit() {
   }

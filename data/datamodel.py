@@ -98,7 +98,7 @@ polls = []
 
 selected_polls = []
 
-with open("C:/Users/Nathan/Documents/GitHub/2020-primary-tracker/data/polls.csv", "r") as raw_polls_file:
+with open("/home/nathan/Documents/Projects/2020-primary-tracker/data/polls.csv", "r") as raw_polls_file:
     reader = csv.reader(raw_polls_file)
     polls = parse_from_csv(reader)
 
