@@ -1,20 +1,17 @@
 import csv
 import time
 import us
+import os
 
 class Poll:
 
-    def __init__(self, _id, party, date, state, poll_numbers):
-
-        if state == "":
-            self.state = "US"
-        else:
-            self.state = state
+    def __init__(self, _id, party, date, poll_numbers, state = "US"):
 
         self.date = date
         self.poll_numbers = poll_numbers
         self._id = _id
         self.party = party
+        self.state = state
 
     def display(self):
 
@@ -49,7 +46,7 @@ def parse_from_csv(reader):
         # Identify if the poll is the same
         if row[0] != current_poll:
             # note: poll_numbers.copy() provides a shallow copy
-            pollObject = Poll(current_poll, current_party, current_date, current_state, poll_numbers.copy())
+            pollObject = Poll(current_poll, current_party, current_date, poll_numbers.copy(), current_state)
             result.append(pollObject)
             
             poll_numbers.clear()
@@ -72,7 +69,7 @@ def truncate(x):
 
 def create_average_poll(polls, state_name):
 
-    result = Poll(str(len(polls)), state_name, {})
+    result = Poll(str(len(polls)), "Average", "Average", {}, state_name)
 
     for poll in polls:
         for key, value in poll.poll_numbers.items():
@@ -88,7 +85,7 @@ def create_average_poll(polls, state_name):
 
 def convert_poll_to_percent_delegates(poll, state_name):
 
-    viable_candidates = Poll("", state_name, {})
+    viable_candidates = Poll("", "", "", {}, state_name)
 
     for key, value in poll.poll_numbers.items():
         if value >= 8.0:
@@ -105,7 +102,7 @@ def convert_poll_to_percent_delegates(poll, state_name):
 
 def to_delegates(poll, delegate_count):
 
-    delegate_result = Poll("", poll.state, {})
+    delegate_result = Poll("", "", "", {}, poll.state)
     for key, value in poll.poll_numbers.items():
         delegate_result.poll_numbers[key] = int(delegate_count[poll.state] * (value / 100))
 
@@ -114,7 +111,7 @@ def to_delegates(poll, delegate_count):
 
 
 
-'''
+
 
 
 delegate_count = {'Iowa': 41, 'New Hampshire': 24, "Nevada": 36, "South Carolina": 54} # "Alabama": 52, "Massachusetts": 91, "Minnesota": 75, "North Carolina": 110, "Oklahoma": 37, "Tennessee": 64, "Texas": 228, "California": 416, "Utah": 29, "Vermont": 16, "Virginia": 99}
@@ -125,12 +122,12 @@ polls = []
 
 selected_polls = []
 
-with open("/home/nathan/Documents/2020 Primary/polls.csv", "r") as raw_polls_file:
+with open("C:/Users/Nathan/Documents/GitHub/2020-primary-tracker/data/polls.csv", "r") as raw_polls_file:
     reader = csv.reader(raw_polls_file)
     polls = parse_from_csv(reader)
 
 
-total_delegates = Poll("", "Total Delegates", {})
+total_delegates = Poll("", "", "", {}, "Total Delegates")
 
 for state in us.states.STATES:
 
@@ -167,4 +164,3 @@ for state in us.states.STATES:
 
 total_delegates.display()
 
-'''
