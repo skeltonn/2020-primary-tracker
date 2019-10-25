@@ -83,31 +83,6 @@ def create_average_poll(polls, state_name):
     
     return result
 
-def convert_poll_to_percent_delegates(poll, state_name):
-
-    viable_candidates = Poll("", "", "", {}, state_name)
-
-    for key, value in poll.poll_numbers.items():
-        if value >= 8.0:
-            viable_candidates.poll_numbers[key] = value
-
-    percentage_total = 0
-    for key, value in viable_candidates.poll_numbers.items():
-        percentage_total += value
-    
-    for key, value in viable_candidates.poll_numbers.items():
-        viable_candidates.poll_numbers[key] = truncate((value / percentage_total) * 100)
-
-    return viable_candidates
-
-def to_delegates(poll, delegate_count):
-
-    delegate_result = Poll("", "", "", {}, poll.state)
-    for key, value in poll.poll_numbers.items():
-        delegate_result.poll_numbers[key] = int(delegate_count[poll.state] * (value / 100))
-
-    return delegate_result
-
 
 
 
@@ -126,8 +101,6 @@ with open("C:/Users/Nathan/Documents/GitHub/2020-primary-tracker/data/polls.csv"
     reader = csv.reader(raw_polls_file)
     polls = parse_from_csv(reader)
 
-
-total_delegates = Poll("", "", "", {}, "Total Delegates")
 
 for state in us.states.STATES:
 
@@ -149,18 +122,6 @@ for state in us.states.STATES:
     
     average = create_average_poll(selected_polls, state.name)
     average.display()
-    delegate_percent = convert_poll_to_percent_delegates(average, state.name)
-    delegate_percent.display()
-    delegates = to_delegates(delegate_percent, delegate_count)
-    delegates.display()
-
-    for key, value in delegates.poll_numbers.items():
-        if key not in total_delegates.poll_numbers:
-            total_delegates.poll_numbers[key] = value
-        else:
-            total_delegates.poll_numbers[key] += value
 
     selected_polls.clear()
-
-total_delegates.display()
 
