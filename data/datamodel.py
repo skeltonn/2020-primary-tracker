@@ -2,6 +2,7 @@ import csv
 import time
 import us
 import os
+import json
 
 class Poll:
 
@@ -122,6 +123,9 @@ for state in us.states.STATES:
     
     average = create_average_poll(selected_polls, state.name)
     average.display()
+
+    with open(poll.state + '.json', 'w') as json_file:
+        json.dump(average.poll_numbers, json_file)
 
     selected_polls.clear()
 
