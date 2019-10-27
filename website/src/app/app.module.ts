@@ -2,14 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { ExampleComponent } from './example/example.component';
+import { EarlyStateAverageComponent } from './early-state-average/early-state-average.component';
 
 import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExampleComponent
+    EarlyStateAverageComponent
   ],
   imports: [
     BrowserModule,

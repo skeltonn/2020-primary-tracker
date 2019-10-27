@@ -7,11 +7,11 @@ import SouthCarolina from '../../assets/South Carolina.json';
 const accepted = ["Biden", "Warren", "Sanders", "Buttigieg", "Harris", "Steyer", "Booker", "Klobuchar", "Yang", "Gabbard", "O'Rourke"];
 
 @Component({
-  selector: 'app-example',
-  templateUrl: './example.component.html',
-  styleUrls: ['./example.component.css']
+  selector: 'app-early-state-average',
+  templateUrl: './early-state-average.component.html',
+  styleUrls: ['./early-state-average.component.css']
 })
-export class ExampleComponent implements OnInit {
+export class EarlyStateAverageComponent implements OnInit {
 
   chartOptions = {
     responsive: true,

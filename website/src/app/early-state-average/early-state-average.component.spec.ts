@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExampleComponent } from './example.component';
+import { EarlyStateAverageComponent } from './early-state-average.component';
 
 describe('ExampleComponent', () => {
-  let component: ExampleComponent;
-  let fixture: ComponentFixture<ExampleComponent>;
+  let component: EarlyStateAverageComponent;
+  let fixture: ComponentFixture<EarlyStateAverageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExampleComponent ]
+      declarations: [ EarlyStateAverageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExampleComponent);
+    fixture = TestBed.createComponent(EarlyStateAverageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
